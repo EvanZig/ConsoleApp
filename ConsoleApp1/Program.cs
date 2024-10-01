@@ -22,6 +22,7 @@ namespace TicTacToe
                 }
                 else
                 {
+                    Console.WriteLine("Test Changes");
                     Console.WriteLine("Turn: Player 1");
                 }
                 Console.WriteLine("\n");
