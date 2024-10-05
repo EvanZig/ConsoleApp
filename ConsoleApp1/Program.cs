@@ -76,15 +76,12 @@ namespace TicTacToe
             switch (true)
             {
                 #region Winning Combinations
-                // Horizontal winning combinations
                 case bool _ when board[1] == board[2] && board[2] == board[3]:
                 case bool _ when board[4] == board[5] && board[5] == board[6]:
                 case bool _ when board[7] == board[8] && board[8] == board[9]:
-                // Vertical winning combinations
                 case bool _ when board[1] == board[4] && board[4] == board[7]:
                 case bool _ when board[2] == board[5] && board[5] == board[8]:
                 case bool _ when board[3] == board[6] && board[6] == board[9]:
-                // Diagonal winning combinations
                 case bool _ when board[1] == board[5] && board[5] == board[9]:
                 case bool _ when board[3] == board[5] && board[5] == board[7]:
                     return 1;
