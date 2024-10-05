@@ -22,6 +22,7 @@ namespace TicTacToe
                 }
                 else
                 {
+                    Console.WriteLine("Turn: Player 2");
                     Console.WriteLine("Test Changes");
                     Console.WriteLine("Turn: Player 1");
                 }
@@ -72,55 +73,34 @@ namespace TicTacToe
         // Function to check for a win or a draw
         private static int CheckWin()
         {
-            #region Winning Combinations
-            // Horizontal winning combinations
-            if (board[1] == board[2] && board[2] == board[3])
+            switch (true)
             {
-                return 1;
-            }
-            else if (board[4] == board[5] && board[5] == board[6])
-            {
-                return 1;
-            }
-            else if (board[7] == board[8] && board[8] == board[9])
-            {
-                return 1;
-            }
-            // Vertical winning combinations
-            else if (board[1] == board[4] && board[4] == board[7])
-            {
-                return 1;
-            }
-            else if (board[2] == board[5] && board[5] == board[8])
-            {
-                return 1;
-            }
-            else if (board[3] == board[6] && board[6] == board[9])
-            {
-                return 1;
-            }
-            // Diagonal winning combinations
-            else if (board[1] == board[5] && board[5] == board[9])
-            {
-                return 1;
-            }
-            else if (board[3] == board[5] && board[5] == board[7])
-            {
-                return 1;
-            }
-            #endregion
+                #region Winning Combinations
+                // Horizontal winning combinations
+                case bool _ when board[1] == board[2] && board[2] == board[3]:
+                case bool _ when board[4] == board[5] && board[5] == board[6]:
+                case bool _ when board[7] == board[8] && board[8] == board[9]:
+                // Vertical winning combinations
+                case bool _ when board[1] == board[4] && board[4] == board[7]:
+                case bool _ when board[2] == board[5] && board[5] == board[8]:
+                case bool _ when board[3] == board[6] && board[6] == board[9]:
+                // Diagonal winning combinations
+                case bool _ when board[1] == board[5] && board[5] == board[9]:
+                case bool _ when board[3] == board[5] && board[5] == board[7]:
+                    return 1;
+                #endregion
 
-            // Check for a draw (all positions filled)
-            else if (board[1] != '1' && board[2] != '2' && board[3] != '3' && board[4] != '4' &&
-                     board[5] != '5' && board[6] != '6' && board[7] != '7' && board[8] != '8' && board[9] != '9')
-            {
-                return -1;
-            }
-            else
-            {
-                return 0;
+                // Check for a draw (all positions filled)
+                case bool _ when board[1] != '1' && board[2] != '2' && board[3] != '3' &&
+                                 board[4] != '4' && board[5] != '5' && board[6] != '6' &&
+                                 board[7] != '7' && board[8] != '8' && board[9] != '9':
+                    return -1;
+
+                default:
+                    return 0;
             }
         }
+
 
         // Function to display the board
         private static void Board()
