@@ -5,15 +5,15 @@ namespace TicTacToe
     class Program
     {
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        static int player = 1; // Player 1 starts first
-        static int choice;     // User choice for the position
-        static int flag = 0;   // Flag to determine the game's status
+        static int player = 1; 
+        static int choice;  
+        static int flag = 0;  
 
         static void Main(string[] args)
         {
             do
             {
-                Console.Clear(); // Whenever loop restarts we clear the console
+                Console.Clear();
                 Console.WriteLine("Player 1: X and Player 2: O");
                 Console.WriteLine("\n");
                 if (player % 2 == 0)
@@ -27,10 +27,9 @@ namespace TicTacToe
                     Console.WriteLine("Turn: Player 1");
                 }
                 Console.WriteLine("\n");
-                Board(); // Show the board
-                choice = int.Parse(Console.ReadLine()); // Take player input
+                Board(); 
+                choice = int.Parse(Console.ReadLine()); 
 
-                // Check if the input is valid and the position is not already marked
                 if (board[choice] != 'X' && board[choice] != 'O')
                 {
                     if (player % 2 == 0)
@@ -46,17 +45,16 @@ namespace TicTacToe
                 }
                 else
                 {
-                    // If the position is already taken, show message and redo the turn
                     Console.WriteLine($"Position {choice} is already marked with an {board[choice]}.");
                     Console.WriteLine("Please wait 2 seconds and try again...");
                     System.Threading.Thread.Sleep(2000);
                 }
 
-                flag = CheckWin(); // Check if someone has won or if there is a draw
+                flag = CheckWin(); 
 
             } while (flag != 1 && flag != -1);
 
-            Console.Clear(); // Game ends, clear the board
+            Console.Clear(); 
             Board();
 
             if (flag == 1)
@@ -70,7 +68,6 @@ namespace TicTacToe
             Console.ReadLine();
         }
 
-        // Function to check for a win or a draw
         private static int CheckWin()
         {
             switch (true)
@@ -87,7 +84,6 @@ namespace TicTacToe
                     return 1;
                 #endregion
 
-                // Check for a draw (all positions filled)
                 case bool _ when board[1] != '1' && board[2] != '2' && board[3] != '3' &&
                                  board[4] != '4' && board[5] != '5' && board[6] != '6' &&
                                  board[7] != '7' && board[8] != '8' && board[9] != '9':
@@ -99,7 +95,6 @@ namespace TicTacToe
         }
 
 
-        // Function to display the board
         private static void Board()
         {
             Console.WriteLine("     |     |      ");
