@@ -6,8 +6,10 @@ namespace TicTacToe
     {
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int player = 1; 
-        static int choice;  
-        static int flag = 0;  
+        static int choice;
+        static int flag = 0;
+        const char PLAYER_ONE_SYMBOL = 'X';
+        const char PLAYER_TWO_SYMBOL = 'O';
 
         static void Main(string[] args)
         {
@@ -16,45 +18,38 @@ namespace TicTacToe
                 Console.Clear();
                 Console.WriteLine("Player 1: X and Player 2: O");
                 Console.WriteLine("\n");
-                if (player % 2 == 0)
-                {
-                    Console.WriteLine("Turn: Player 2");
-                }
-                else
-                {
-                    Console.WriteLine("Turn: Player 2");
-                    Console.WriteLine("Test Changes");
-                    Console.WriteLine("Turn: Player 1");
-                }
-                Console.WriteLine("\n");
-                Board(); 
-                choice = int.Parse(Console.ReadLine()); 
+                Console.WriteLine($"Turn: Player {(player % 2) + 1}");
 
-                if (board[choice] != 'X' && board[choice] != 'O')
+                Board();
+                
+                bool validInput = false;
+                while (!validInput)
                 {
-                    if (player % 2 == 0)
+                    Console.Write("Choose your position (1-9): ");
+                    if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= 9)
                     {
-                        board[choice] = 'O';
-                        player++;
+                        if (board[choice] != PLAYER_ONE_SYMBOL && board[choice] != PLAYER_TWO_SYMBOL)
+                        {
+                            validInput = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Position {choice} is already marked with an {board[choice]}.");
+                        }
                     }
                     else
                     {
-                        board[choice] = 'X';
-                        player++;
+                        Console.WriteLine("Invalid input! Please enter a number between 1 and 9.");
                     }
                 }
-                else
-                {
-                    Console.WriteLine($"Position {choice} is already marked with an {board[choice]}.");
-                    Console.WriteLine("Please wait 2 seconds and try again...");
-                    System.Threading.Thread.Sleep(2000);
-                }
 
-                flag = CheckWin(); 
+                board[choice] = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
+                player++;
+                flag = CheckWin();
 
             } while (flag != 1 && flag != -1);
 
-            Console.Clear(); 
+            Console.Clear();
             Board();
 
             if (flag == 1)
@@ -70,30 +65,31 @@ namespace TicTacToe
 
         private static int CheckWin()
         {
-            switch (true)
+            int[][] winningCombinations = {
+                new[] { 1, 2, 3 },
+                new[] { 4, 5, 6 },
+                new[] { 7, 8, 9 },
+                new[] { 1, 4, 7 },
+                new[] { 2, 5, 8 },
+                new[] { 3, 6, 9 },
+                new[] { 1, 5, 9 },
+                new[] { 3, 5, 7 }
+            };
+
+            foreach (var combination in winningCombinations)
             {
-                #region Winning Combinations
-                case bool _ when board[1] == board[2] && board[2] == board[3]:
-                case bool _ when board[4] == board[5] && board[5] == board[6]:
-                case bool _ when board[7] == board[8] && board[8] == board[9]:
-                case bool _ when board[1] == board[4] && board[4] == board[7]:
-                case bool _ when board[2] == board[5] && board[5] == board[8]:
-                case bool _ when board[3] == board[6] && board[6] == board[9]:
-                case bool _ when board[1] == board[5] && board[5] == board[9]:
-                case bool _ when board[3] == board[5] && board[5] == board[7]:
+                if (board[combination[0]] == board[combination[1]] && board[combination[1]] == board[combination[2]])
+                {
                     return 1;
-                #endregion
-
-                case bool _ when board[1] != '1' && board[2] != '2' && board[3] != '3' &&
-                                 board[4] != '4' && board[5] != '5' && board[6] != '6' &&
-                                 board[7] != '7' && board[8] != '8' && board[9] != '9':
-                    return -1;
-
-                default:
-                    return 0;
+                }
             }
-        }
+            if (Array.TrueForAll(board, cell => cell == PLAYER_ONE_SYMBOL || cell == PLAYER_TWO_SYMBOL))
+            {
+                return -1;
+            }
 
+            return 0;
+        }
 
         private static void Board()
         {
