@@ -7,7 +7,7 @@ namespace TicTacToe
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int player = 1; 
         static int choice;
-        static int flag = 0;
+        static int checkerFlag = 0;
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
 
@@ -45,14 +45,14 @@ namespace TicTacToe
 
                 board[choice] = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
                 player++;
-                flag = CheckWin();
+                checkerFlag = CheckWin();
 
-            } while (flag != 1 && flag != -1);
+            } while (checkerFlag != 1 && checkerFlag != -1);
 
             Console.Clear();
             Board();
 
-            if (flag == 1)
+            if (checkerFlag == 1)
             {
                 Console.WriteLine($"Player {(player % 2) + 1} has won!");
             }
