@@ -7,60 +7,79 @@ namespace TicTacToe
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int player = 1; 
         static int choice;
-        static int checkerFlag = 0;
+        static int gameStatus = 0;
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
 
         static void Main(string[] args)
         {
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Player 1: X and Player 2: O");
-                Console.WriteLine("\n");
-                Console.WriteLine($"Turn: Player {(player % 2) + 1}");
+            bool playAgain = true;
 
-                Board();
-                
-                bool validInput = false;
-                while (!validInput)
+            while (playAgain)
+            {
+                ResetBoard();
+                player = 1;
+                gameStatus = 0;
+
+                do
                 {
-                    Console.Write("Choose your position (1-9): ");
-                    if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= 9)
+                    Console.Clear();
+                    Console.WriteLine("Player 1: X and Player 2: O");
+                    Console.WriteLine("\n");
+                    Console.WriteLine($"Turn: Player {(player % 2) + 1}");
+
+                    Board();
+
+                    bool validInput = false;
+                    while (!validInput)
                     {
-                        if (board[choice] != PLAYER_ONE_SYMBOL && board[choice] != PLAYER_TWO_SYMBOL)
+                        Console.Write("Choose your position (1-9): ");
+                        if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= 9)
                         {
-                            validInput = true;
+                            if (board[choice] != PLAYER_ONE_SYMBOL && board[choice] != PLAYER_TWO_SYMBOL)
+                            {
+                                validInput = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Position {choice} is already marked with an {board[choice]}.");
+                            }
                         }
                         else
                         {
-                            Console.WriteLine($"Position {choice} is already marked with an {board[choice]}.");
+                            Console.WriteLine("Invalid input! Please enter a number between 1 and 9.");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Invalid input! Please enter a number between 1 and 9.");
-                    }
+
+                    board[choice] = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
+                    player++;
+                    gameStatus = CheckWin();
+
+                } while (gameStatus == 0);
+
+                Console.Clear();
+                Board();
+
+                if (gameStatus == 1)
+                {
+                    Console.WriteLine($"Player {(player % 2) + 1} has won!");
+                }
+                else if (gameStatus == -1)
+                {
+                    Console.WriteLine("It's a draw!");
                 }
 
-                board[choice] = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
-                player++;
-                checkerFlag = CheckWin();
-
-            } while (checkerFlag != 1 && checkerFlag != -1);
-
-            Console.Clear();
-            Board();
-
-            if (checkerFlag == 1)
-            {
-                Console.WriteLine($"Player {(player % 2) + 1} has won!");
+                Console.WriteLine("Would you like to play again? (Y/N): ");
+                playAgain = Console.ReadLine().ToUpper() == "Y";
             }
-            else
+        }
+
+        private static void ResetBoard()
+        {
+            for (int i = 1; i < board.Length; i++)
             {
-                Console.WriteLine("It's a draw!");
+                board[i] = char.Parse(i.ToString());
             }
-            Console.ReadLine();
         }
 
         private static int CheckWin()
@@ -83,12 +102,13 @@ namespace TicTacToe
                     return 1;
                 }
             }
-            if (Array.TrueForAll(board, cell => cell == PLAYER_ONE_SYMBOL || cell == PLAYER_TWO_SYMBOL))
+
+            if (Array.TrueForAll(board[1..], cell => cell == PLAYER_ONE_SYMBOL || cell == PLAYER_TWO_SYMBOL))
             {
-                return -1;
+                return -1; // It's a draw
             }
 
-            return 0;
+            return 0; // Continue playing
         }
 
         private static void Board()
