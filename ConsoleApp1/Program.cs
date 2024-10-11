@@ -8,6 +8,8 @@ namespace TicTacToe
         static int player = 1; 
         static int choice;
         static int gameStatus = 0;
+        static int playerOneWins = 0;
+        static int playerTwoWins = 0;
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
 
@@ -26,6 +28,7 @@ namespace TicTacToe
                     Console.Clear();
                     Console.WriteLine("Player 1: X and Player 2: O");
                     Console.WriteLine("\n");
+                    Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
                     Console.WriteLine($"Turn: Player {(player % 2) + 1}");
 
                     Board();
@@ -62,7 +65,16 @@ namespace TicTacToe
 
                 if (gameStatus == 1)
                 {
-                    Console.WriteLine($"Player {(player % 2) + 1} has won!");
+                    int winningPlayer = (player % 2) + 1;
+                    Console.WriteLine($"Player {winningPlayer} has won!");
+                    if (winningPlayer == 1)
+                    {
+                        playerOneWins++;
+                    }
+                    else
+                    {
+                        playerTwoWins++;
+                    }
                 }
                 else if (gameStatus == -1)
                 {
@@ -72,6 +84,8 @@ namespace TicTacToe
                 Console.WriteLine("Would you like to play again? (Y/N): ");
                 playAgain = Console.ReadLine().ToUpper() == "Y";
             }
+
+            Console.WriteLine($"Final Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
         }
 
         private static void ResetBoard()
