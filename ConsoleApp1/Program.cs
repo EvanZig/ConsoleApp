@@ -78,7 +78,7 @@ namespace TicTacToe
                 }
                 else if (gameStatus == -1)
                 {
-                    Console.WriteLine("It's a draw!");
+                    Console.WriteLine("It's a Draw!");
                 }
 
                 Console.WriteLine("Would you like to play again? (Y/N): ");
@@ -119,10 +119,10 @@ namespace TicTacToe
 
             if (Array.TrueForAll(board[1..], cell => cell == PLAYER_ONE_SYMBOL || cell == PLAYER_TWO_SYMBOL))
             {
-                return -1; // It's a draw
+                return -1;
             }
 
-            return 0; // Continue playing
+            return 0;
         }
 
         private static void Board()
