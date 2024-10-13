@@ -10,6 +10,7 @@ namespace TicTacToe
         static int gameStatus = 0;
         static int playerOneWins = 0;
         static int playerTwoWins = 0;
+        static int totalGamesPlayed = 0; // New variable to track total games
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
 
@@ -29,6 +30,7 @@ namespace TicTacToe
                     Console.WriteLine("Player 1: X and Player 2: O");
                     Console.WriteLine("\n");
                     Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
+                    Console.WriteLine($"Total Games Played: {totalGamesPlayed}"); // Display total games played
                     Console.WriteLine($"Turn: Player {(player % 2) + 1}");
 
                     Board();
@@ -81,11 +83,14 @@ namespace TicTacToe
                     Console.WriteLine("It's a Draw!");
                 }
 
+                totalGamesPlayed++; // Increment total games played after each game
+
                 Console.WriteLine("Would you like to play again? (Y/N): ");
                 playAgain = Console.ReadLine().ToUpper() == "Y";
             }
 
             Console.WriteLine($"Final Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
+            Console.WriteLine($"Total Games Played: {totalGamesPlayed}");
         }
 
         private static void ResetBoard()
