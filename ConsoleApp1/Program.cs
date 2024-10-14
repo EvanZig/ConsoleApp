@@ -7,10 +7,11 @@ namespace TicTacToe
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
         static int player = 1; 
         static int choice;
+        static int draws = 0;
         static int gameStatus = 0;
         static int playerOneWins = 0;
         static int playerTwoWins = 0;
-        static int totalGamesPlayed = 0; // New variable to track total games
+        static int totalGamesPlayed = 0; 
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
 
@@ -29,7 +30,7 @@ namespace TicTacToe
                     Console.Clear();
                     Console.WriteLine("Player 1: X and Player 2: O");
                     Console.WriteLine("\n");
-                    Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
+                    Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins} | Draws: {draws}");
                     Console.WriteLine($"Total Games Played: {totalGamesPlayed}"); // Display total games played
                     Console.WriteLine($"Turn: Player {(player % 2) + 1}");
 
@@ -81,15 +82,16 @@ namespace TicTacToe
                 else if (gameStatus == -1)
                 {
                     Console.WriteLine("It's a Draw!");
+                    draws++;
                 }
 
-                totalGamesPlayed++; // Increment total games played after each game
+                totalGamesPlayed++;
 
                 Console.WriteLine("Would you like to play again? (Y/N): ");
                 playAgain = Console.ReadLine().ToUpper() == "Y";
             }
 
-            Console.WriteLine($"Final Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins}");
+            Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins} | Draws: {draws}");
             Console.WriteLine($"Total Games Played: {totalGamesPlayed}");
         }
 
