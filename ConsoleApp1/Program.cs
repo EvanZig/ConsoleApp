@@ -14,6 +14,7 @@ namespace TicTacToe
         static int totalGamesPlayed = 0; 
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
+        static Random random = new Random(); // Random object for selecting starting player
 
         static void Main(string[] args)
         {
@@ -22,7 +23,7 @@ namespace TicTacToe
             while (playAgain)
             {
                 ResetBoard();
-                player = 1;
+                player = random.Next(1, 3); // Randomize starting player
                 gameStatus = 0;
 
                 do
