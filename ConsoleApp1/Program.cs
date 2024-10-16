@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TicTacToe
 {
@@ -14,8 +15,9 @@ namespace TicTacToe
         static int totalGamesPlayed = 0; 
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
-        static Random random = new Random(); // Random object for selecting starting player
-
+        static Random random = new Random();
+        static List<string> moveHistory = new List<string>(); // Move history feature
+        
         static void Main(string[] args)
         {
             bool playAgain = true;
@@ -25,6 +27,7 @@ namespace TicTacToe
                 ResetBoard();
                 player = random.Next(1, 3); // Randomize starting player
                 gameStatus = 0;
+                moveHistory.Clear(); // Clear move history for new game
 
                 do
                 {
@@ -32,7 +35,7 @@ namespace TicTacToe
                     Console.WriteLine("Player 1: X and Player 2: O");
                     Console.WriteLine("\n");
                     Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins} | Draws: {draws}");
-                    Console.WriteLine($"Total Games Played: {totalGamesPlayed}"); // Display total games played
+                    Console.WriteLine($"Total Games Played: {totalGamesPlayed}");
                     Console.WriteLine($"Turn: Player {(player % 2) + 1}");
 
                     Board();
@@ -58,7 +61,9 @@ namespace TicTacToe
                         }
                     }
 
-                    board[choice] = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
+                    char currentSymbol = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
+                    board[choice] = currentSymbol;
+                    moveHistory.Add($"Player {(player % 2) + 1}: {currentSymbol} to position {choice}"); // Track move history
                     player++;
                     gameStatus = CheckWin();
 
@@ -87,6 +92,13 @@ namespace TicTacToe
                 }
 
                 totalGamesPlayed++;
+
+                // Display move history after each game
+                Console.WriteLine("\nMove History:");
+                foreach (var move in moveHistory)
+                {
+                    Console.WriteLine(move);
+                }
 
                 Console.WriteLine("Would you like to play again? (Y/N): ");
                 playAgain = Console.ReadLine().ToUpper() == "Y";
