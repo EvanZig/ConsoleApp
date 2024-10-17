@@ -16,7 +16,7 @@ namespace TicTacToe
         const char PLAYER_ONE_SYMBOL = 'X';
         const char PLAYER_TWO_SYMBOL = 'O';
         static Random random = new Random();
-        static List<string> moveHistory = new List<string>(); // Move history feature
+        static List<string> moveHistory = new List<string>();
         
         static void Main(string[] args)
         {
@@ -25,9 +25,9 @@ namespace TicTacToe
             while (playAgain)
             {
                 ResetBoard();
-                player = random.Next(1, 3); // Randomize starting player
+                player = random.Next(1, 3);
                 gameStatus = 0;
-                moveHistory.Clear(); // Clear move history for new game
+                moveHistory.Clear(); 
 
                 do
                 {
@@ -93,7 +93,6 @@ namespace TicTacToe
 
                 totalGamesPlayed++;
 
-                // Display move history after each game
                 Console.WriteLine("\nMove History:");
                 foreach (var move in moveHistory)
                 {
