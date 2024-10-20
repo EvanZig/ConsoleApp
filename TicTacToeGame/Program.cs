@@ -6,7 +6,7 @@ namespace TicTacToe
     class Program
     {
         static char[] board = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        static int player = 1; 
+        static int player = 1;
         static int choice;
         static int draws = 0;
         static int gameStatus = 0;
@@ -146,6 +146,8 @@ namespace TicTacToe
 
         private static void Board()
         {
+            char currentSymbol = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
+            Console.WriteLine($"Player {(player % 2) + 1}'s Turn: {currentSymbol}");
             Console.WriteLine("     |     |      ");
             Console.WriteLine($"  {board[1]}  |  {board[2]}  |  {board[3]}");
             Console.WriteLine("_____|_____|_____ ");
@@ -156,5 +158,6 @@ namespace TicTacToe
             Console.WriteLine($"  {board[7]}  |  {board[8]}  |  {board[9]}");
             Console.WriteLine("     |     |      ");
         }
+
     }
 }
