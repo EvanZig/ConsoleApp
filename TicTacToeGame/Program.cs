@@ -18,6 +18,16 @@ namespace TicTacToe
         static Random random = new Random();
         static List<string> moveHistory = new List<string>();
         
+        static List<string> motivationalMessages = new List<string>
+        {
+            "Nice move!",
+            "You're on fire!",
+            "Keep it up!",
+            "Great choice!",
+            "You're almost there!"
+        };
+
+        
         static void Main(string[] args)
         {
             bool playAgain = true;
@@ -63,9 +73,14 @@ namespace TicTacToe
 
                     char currentSymbol = player % 2 == 0 ? PLAYER_TWO_SYMBOL : PLAYER_ONE_SYMBOL;
                     board[choice] = currentSymbol;
-                    moveHistory.Add($"Player {(player % 2) + 1}: {currentSymbol} to position {choice}"); // Track move history
+                    moveHistory.Add($"Player {(player % 2) + 1}: {currentSymbol} to position {choice}");
+
+                    Console.WriteLine(motivationalMessages[random.Next(motivationalMessages.Count)]);
+                    System.Threading.Thread.Sleep(1000);
+
                     player++;
                     gameStatus = CheckWin();
+
 
                 } while (gameStatus == 0);
 
