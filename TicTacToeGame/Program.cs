@@ -26,6 +26,16 @@ namespace TicTacToe
             "Great choice!",
             "You're almost there!"
         };
+        
+        static List<string> funFacts = new List<string>
+        {
+            "Tic-Tac-Toe is also called Noughts and Crosses.",
+            "The game has been played for over 3000 years!",
+            "In some parts of the world, it's called 'X's and O's.",
+            "The first computer to play Tic-Tac-Toe was built in 1952.",
+            "There are 255,168 unique game combinations!"
+        };
+
 
         
         static void Main(string[] args)
@@ -116,6 +126,9 @@ namespace TicTacToe
 
                 Console.WriteLine("Would you like to play again? (Y/N): ");
                 playAgain = Console.ReadLine().ToUpper() == "Y";
+                Console.WriteLine($"Fun Fact: {funFacts[random.Next(funFacts.Count)]}");
+                System.Threading.Thread.Sleep(1500);
+
             }
 
             Console.WriteLine($"Score - Player 1: {playerOneWins} | Player 2: {playerTwoWins} | Draws: {draws}");
