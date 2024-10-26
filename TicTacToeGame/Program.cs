@@ -24,7 +24,8 @@ namespace TicTacToe
             "You're on fire!",
             "Keep it up!",
             "Great choice!",
-            "You're almost there!"
+            "You're almost there!",
+            "You're on the right track!"
         };
         
         static List<string> funFacts = new List<string>
