@@ -35,7 +35,8 @@ namespace TicTacToe
             "In some parts of the world, it's called 'X's and O's.",
             "The first computer to play Tic-Tac-Toe was built in 1952.",
             "There are 255,168 unique game combinations!",
-            "Did you know? The first player can always win or draw if they play optimally."
+            "Did you know? The first player can always win or draw if they play optimally.",
+            "The longest game of Tic-Tac-Toe on record took 91 moves to complete!"
         };
 
 
