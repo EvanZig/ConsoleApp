@@ -1,2 +1,2 @@
 General Practice for c#
-(a tic tac toe game with a couple features)
+(a tic tac toe game with a few features)
